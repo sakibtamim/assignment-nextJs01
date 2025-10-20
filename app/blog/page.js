@@ -4,6 +4,16 @@ import Container from "../components/shared/Container";
 
 export default function Blog() {
   const [post, setPost] = useState([]);
+  const [visible, setVisible] = useState(6);
+
+  const visiblePost = post.slice(0, visible);
+
+  const handleMore = () => {
+    setVisible((prev) => prev + 3);
+  };
+  //   const handleLess = () => {
+  //     setVisible((prev) => prev - 3);
+  //   };
 
   useEffect(() => {
     fetch("https://dummyjson.com/posts")
@@ -15,7 +25,7 @@ export default function Blog() {
       <Container>
         <div className="text-[20px] font-semibold pb-[20px]">All Blog data</div>
         <div className=" flex flex-wrap justify-between gap-y-[20px]">
-          {post.slice(0, 6).map((item) => (
+          {visiblePost.map((item) => (
             <div className="w-[32%] border border-black p-4 rounded">
               <h2 className="text-[20px] font-bold pb-[10px]">{item.title}</h2>
               <p className="text-[16px] text-gray-400 pb-[14px]">{item.body}</p>
@@ -42,9 +52,16 @@ export default function Blog() {
           ))}
         </div>
         <div className="text-center pt-[50px]">
-          <p className="py-2 px-4 bg-black text-white inline-block rounded">
-            See More
-          </p>
+          {post.length === visiblePost.length ? (
+            ""
+          ) : (
+            <p
+              onClick={handleMore}
+              className="py-2 px-4 bg-black text-white inline-block cursor-pointer rounded"
+            >
+              See More
+            </p>
+          )}
         </div>
       </Container>
     </section>
