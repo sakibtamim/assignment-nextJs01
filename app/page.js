@@ -1,5 +1,12 @@
-import Image from "next/image";
+import Navbar from "./components/navbar/Navbar";
+import Container from "./components/shared/Container";
 
 export default function Home() {
-  return <div>FDR2413</div>;
+  return (
+    <section>
+      <Container>
+        <div>this is home page</div>
+      </Container>
+    </section>
+  );
 }
